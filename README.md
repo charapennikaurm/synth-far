@@ -6,7 +6,7 @@
 > **USING SYNTHETIC DATA FOR FACE ATTRIBUTES RECOGNITION**<br>
 > Raman Charapennikau  
 > Belarussian State University  
-> **Abstract:**  The paper explores the usage of diffusion models to create synthetic datasets for facial attribute recognition, focusing on age, gender and ethnicity prediction. We compare models trained on real-world data, synthetic data, and a combination of both. We demonstrate that pretraining on synthetic data followed by fine-tuning on real samples outperforms models trained solely on real-world data. Our results highlight the potential of synthetic data to en-hance neural network performance in regression and classification tasks.
+> **Abstract:**  The paper explores the usage of diffusion models to create synthetic datasets for facial attribute recognition, focusing on age, gender and ethnicity prediction. We compare models trained on real-world data, synthetic data, and a combination of both. We demonstrate that pretraining on synthetic data followed by fine-tuning on real samples outperforms models trained solely on real-world data. Our results highlight the potential of synthetic data to enhance neural network performance in regression and classification tasks.
 
 ## Dataset Creation
 
