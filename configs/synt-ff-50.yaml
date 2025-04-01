@@ -1,0 +1,67 @@
+accelerator:
+  mixed_precision: "fp16"
+  log_with: "tensorboard"
+
+directories:
+  base: "/workspace/experiments"
+  logging: "logs"
+  checkpoint: "checkpoints"
+
+model:
+  model:
+    type: synth_far.modeling.age_timm.AGETimmModelAgeCls
+    model_name: "resnet50.a1_in1k"
+    pretrained: true
+    weights: "/workspace/experiments/backbones/FF-synt.pt"
+  optimizer:
+    type: torch.optim.AdamW
+    lr: 0.0001
+    weight_decay: 0.0000001
+  scheduler:
+    name: "cosine"
+    num_warmup_steps: 1000
+    num_training_steps: 50000
+    num_cycles: 1
+    power: 1
+
+train_dataloader:
+  type: torch.utils.data.DataLoader
+  dataset:
+    type: synth_far.datasets.FairFaceDataset
+    data_json: "/workspace/synth-far/dataset/ff-tv-split-50pct.json"
+    split: "train"
+    transforms: "/workspace/synth-far/configs/transforms/train-196.json"
+  
+  batch_size: 16
+  num_workers: 4
+  shuffle: true
+
+val_dataloader:
+  type: torch.utils.data.DataLoader
+  dataset:
+    type: synth_far.datasets.FairFaceDataset
+    data_json: "/workspace/synth-far/dataset/ff-tv-split-50pct.json"
+    split: "val"
+    transforms: "/workspace/synth-far/configs/transforms/val-196.json"
+  batch_size: 16
+  num_workers: 4
+  shuffle: false
+
+clip_grad_policy: "norm"
+clip_grad_value: 1.0  
+loss_age:
+  type: torch.nn.CrossEntropyLoss
+loss_gender:
+  type: torch.nn.BCEWithLogitsLoss
+loss_ethnicity:
+  type: torch.nn.CrossEntropyLoss
+lambda_age: 1.0
+lambda_gender: 1.0
+lambda_ethnicity: 1.0
+
+experiment_name: "synt_ff-resnet50.a1_in1k-50pct"
+seed: 42
+total_steps: 50000
+checkpoint_every_n_steps: 5000
+validate_every_n_steps: 5000
+validate_on_checkpoint: false
